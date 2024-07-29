@@ -1,0 +1,32 @@
+.header {
+  height: 60px;
+  padding-left: var(--mantine-spacing-md);
+  padding-right: var(--mantine-spacing-md);
+  border-bottom: 1px solid var(--mantine-color-gray-3);
+  background-color: var(--blueColor);
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-left: var(--mantine-spacing-md);
+  padding-right: var(--mantine-spacing-md);
+  color: var(--mantine-color-white);
+  text-decoration: none;
+
+  @mixin hover {
+    background-color: var(--mantine-color-gray-0);
+  }
+
+  @media (max-width: 767px) {
+    color: var(--mantine-color-black);
+  }
+}
+
+.title {
+  font-family: 'Dosis', sans-serif;
+  line-height: 22.75px;
+  font-weight: 600;
+  text-transform: uppercase;
+}

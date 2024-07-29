@@ -1,0 +1,52 @@
+{
+  "name": "Tren de la quebrada",
+  "short_name": "Tren",
+  "categories": [
+    "business"
+  ],
+  "description": "Validacion de tickets",
+  "dir": "ltr",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "icons/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/favicon-512x1512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "id": "/",
+  "start_url": "/",
+  "display": "standalone",
+  "scope": ".",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "orientation": "any",
+  "prefer_related_applications": true,
+  "offline_enabled": true,
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://tren-de-la-quebrada.com",
+      "id": ""
+    }
+  ]
+}
