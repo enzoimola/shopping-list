@@ -70,6 +70,7 @@ export const ShoppingList = () => {
         try {
             const updateResult = await updateItem(values.id, values);
             if (!updateResult) return;
+            // @ts-ignore
             // eslint-disable-next-line max-len
             setItems(items.map(item => (item.id === selectedTask.id ? { ...item, ...values } : item)));
         } catch (e) {
@@ -112,6 +113,8 @@ export const ShoppingList = () => {
         }
         setModalOpened(false);
         setSelectedTask(null);
+        // @ts-ignore
+        formRef.current?.reset();
     };
 
     const handleEditTask = (item: ItemI) => {
