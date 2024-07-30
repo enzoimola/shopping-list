@@ -3,6 +3,20 @@
 }
 
 .cardName {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--black);
+}
+
+.description {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--mediumGray);
+}
+
+.selected {
   color: var(--blueColor);
 }
 

@@ -1,0 +1,31 @@
+.container {
+  font-family: 'Nunito', sans-serif;
+}
+
+.header {
+  background-color: var(--white);
+}
+
+.body {
+  border-bottom: 5px solid var(--blueColor);
+}
+
+.title {
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--xdarkGray);
+  margin-top: 10px;
+}
+
+.subtitle {
+  font-weight: 400;
+  line-height: 22px;
+  color: var(--darkGray);
+
+}
+
+.actions {
+  padding-top: 12vh;
+  display: flex;
+  justify-content: end;
+}
