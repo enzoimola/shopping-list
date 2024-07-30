@@ -9,7 +9,7 @@ To set up and run the frontend locally, follow these steps:
 
 1. Clone this repository to your local machine.
 2. Install project dependencies using npm install.
-3. Configure environment variables as needed, including your Firebase credentials and API endpoint.
+3. Configure environment variables as needed, create a new `.env` file using the `.env.example` as an example..
 4. Run the development server using npm run dev or yarn dev.
 5. Access the application in your web browser at http://localhost:3000.
 
@@ -28,7 +28,6 @@ Our frontend is powered by cutting-edge technologies and libraries, including:
 - React: Building dynamic and interactive user interfaces.
 - Mantine: Providing beautiful and customizable UI components.
 - Redux: Managing global state and application data.
-- Jest: Provides a powerful and flexible environment for testing.
 
 ## Version Information
 
