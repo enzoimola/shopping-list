@@ -117,7 +117,7 @@ export const ShoppingList = () => {
 
     const emptyListMessage = <Group className={classes.emptyMessage}>
         <Text size="lg">Your shopping list is empty :(</Text>
-        <Button variant="filled">Add your first item</Button>
+        <Button variant="filled" onClick={() => setModalOpened(true)}>Add your first item</Button>
                              </Group>;
 
     return (<>
