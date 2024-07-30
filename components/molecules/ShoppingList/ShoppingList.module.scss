@@ -5,9 +5,19 @@
 }
 
 .title {
-  display: flex;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  line-height: 24px;  display: flex;
+  text-transform: capitalize;
   justify-content: space-between;
   margin-bottom: 20px;
+  color: var(--black);
+
+  button {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    line-height: 20px;
+  }
 }
 
 .emptyMessage {

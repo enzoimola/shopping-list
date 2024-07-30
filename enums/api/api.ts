@@ -1,5 +1,5 @@
 export enum ApiUrls {
-    GET_LIST = 'shopping-list',
+    SHOPPING_LIST = 'shopping-list',
     DELETE_ITEM = 'shopping-list/',
 }
 

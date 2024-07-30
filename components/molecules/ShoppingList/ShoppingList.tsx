@@ -1,24 +1,32 @@
 import { Box, Button, Group, Loader, LoadingOverlay, Stack, Text, Title } from '@mantine/core';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { notifications } from '@mantine/notifications';
 import classes from './ShoppingList.module.scss';
-import { deleteItem, getItemList } from '@/services/item/item.service';
+import { addNewItem, deleteItem, getItemList, updateItem } from '@/services/item/item.service';
 import { ItemI } from '@/models/interfaces/item.interface';
 import { TaskItem } from '@/components/atoms/TaskItem/TaskItem';
+import { TaskModal } from '@/components/molecules/TaskModal/TaskModal';
 
 export const ShoppingList = () => {
     const [items, setItems] = useState<Array<ItemI>>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [selectedTasks, setSelectedTasks] = useState<Array<number>>([]);
     const [loadingVisible, setLoadingVisible] = useState(false);
+    const [modalOpened, setModalOpened] = useState(false);
+    const [selectedTask, setSelectedTask] = useState<ItemI | null>();
+    const formRef = useRef(); // Crear una referencia para el formulario
 
-    const getStations = async () => {
+    const getShoppingList = async () => {
         try {
             const itemList = await getItemList();
             setItems(itemList);
             setLoading(false);
+            setLoadingVisible(false);
+            // @ts-ignore
+            formRef.current?.reset();
         } catch (e: unknown) {
             setLoading(false);
+            setLoadingVisible(false);
             // @ts-ignore
             notifications.show({
                 // @ts-ignore
@@ -28,7 +36,7 @@ export const ShoppingList = () => {
     };
 
     useEffect(() => {
-        getStations()
+        getShoppingList()
             .then();
     }, []);
 
@@ -58,9 +66,53 @@ export const ShoppingList = () => {
         }
     };
 
+    const handleAddTask = async (values: ItemI) => {
+        if (typeof values.quantity === 'string') {
+            values.quantity = parseInt(values.quantity, 10);
+        }
+        if (selectedTask) {
+            try {
+                const updateResult = await updateItem(values.id, values);
+                console.log('updateResul');
+                console.log(updateResult);
+                if (!updateResult) return;
+                setItems(items.map(item => (item.id === selectedTask.id ? { ...item, ...values } : item)));
+            } catch (e) {
+
+            }
+        } else {
+            try {
+                setLoadingVisible(true);
+                const result = await addNewItem(values);
+                if (!result.id) return;
+                await getShoppingList();
+            } catch (e) {
+                setLoadingVisible(false);
+                // @ts-ignore
+                notifications.show({
+                    // @ts-ignore
+                    message: e.message,
+                    color: 'red',
+                });
+            }
+        }
+        setModalOpened(false);
+        setSelectedTask(null);
+    };
+
+    const handleEditTask = (item: ItemI) => {
+        setSelectedTask(item);
+        setModalOpened(true);
+    };
+
     const handleSelectTask = (id: number) => {
         // eslint-disable-next-line max-len
         setSelectedTasks((prevSelected) => prevSelected.includes(id) ? prevSelected.filter(taskId => taskId !== id) : [...prevSelected, id]);
+    };
+
+    const handleOnCloseModal = () => {
+        setSelectedTask(null);
+        setModalOpened(false);
     };
 
     const emptyListMessage = <Group className={classes.emptyMessage}>
@@ -73,18 +125,26 @@ export const ShoppingList = () => {
         {items.length > 0 && <Box className={classes.container}>
             <Group className={classes.title}>
                 <Title>Your items</Title>
-                <Button variant="filled" color="blue">Add item</Button>
+                <Button variant="filled" color="blue" onClick={() => setModalOpened(true)}>Add item</Button>
             </Group>
             <Stack>
                 {items.map((task) => (<TaskItem
                   key={task.id}
                   task={task}
                   onDelete={handleDeleteTask}
+                  onEdit={handleEditTask}
                   onSelect={handleSelectTask}
                   isSelected={selectedTasks.includes(task.id)}
                 />))}
             </Stack>
                              </Box>}
+        <TaskModal
+          ref={formRef}
+          opened={modalOpened}
+          onClose={handleOnCloseModal}
+          onSubmit={handleAddTask}
+          initialValues={selectedTask}
+        />
         <LoadingOverlay
           visible={loadingVisible}
           zIndex={1000}
