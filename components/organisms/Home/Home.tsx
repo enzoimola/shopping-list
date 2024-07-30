@@ -1,27 +1,10 @@
-import React, { useState } from 'react';
-import { Box, Group, LoadingOverlay } from '@mantine/core';
+import React from 'react';
+import { Group } from '@mantine/core';
+import { ShoppingList } from '@/components/molecules/ShoppingList/ShoppingList';
+import classes from './Home.module.scss';
 
-export const Home: React.FC = () => {
-    const [loadingVisible, setLoadingVisible] = useState(false);
-
-    return (<>
-        <Box pos="relative">
-            <LoadingOverlay
-              visible={loadingVisible}
-              zIndex={1000}
-              overlayProps={{
-                    radius: 'sm',
-                    blur: 2,
-                }}
-              loaderProps={{
-                    color: 'blue',
-                    type: 'bars',
-                }}
-            />
-
-            <Group>
-                <h1>Home content</h1>
-            </Group>
-        </Box>
-            </>);
-};
+export const Home: React.FC = () => (<>
+        <Group className={classes.container}>
+            <ShoppingList />
+        </Group>
+                                     </>);

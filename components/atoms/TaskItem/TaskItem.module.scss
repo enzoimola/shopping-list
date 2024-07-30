@@ -1,0 +1,15 @@
+.cardContainer {
+  display: flex;
+}
+
+.cardName {
+  color: var(--blueColor);
+}
+
+.selectedCard {
+  background-color: #D5DFE9;
+}
+
+.icon {
+  cursor: pointer;
+}
