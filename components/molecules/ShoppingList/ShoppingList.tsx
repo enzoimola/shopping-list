@@ -66,35 +66,49 @@ export const ShoppingList = () => {
         }
     };
 
+    const updateItems = async (values: ItemI) => {
+        try {
+            const updateResult = await updateItem(values.id, values);
+            if (!updateResult) return;
+            // eslint-disable-next-line max-len
+            setItems(items.map(item => (item.id === selectedTask.id ? { ...item, ...values } : item)));
+        } catch (e) {
+            setLoadingVisible(false);
+            // @ts-ignore
+            notifications.show({
+                // @ts-ignore
+                message: e.message,
+                color: 'red',
+            });
+        }
+    };
+
+    const addItem = async (values: ItemI) => {
+        try {
+            setLoadingVisible(true);
+            const result = await addNewItem(values);
+            if (!result.id) return;
+            await getShoppingList();
+        } catch (e) {
+            setLoadingVisible(false);
+            // @ts-ignore
+            notifications.show({
+                // @ts-ignore
+                message: e.message,
+                color: 'red',
+            });
+        }
+    };
+
     const handleAddTask = async (values: ItemI) => {
         if (typeof values.quantity === 'string') {
+            // eslint-disable-next-line no-param-reassign
             values.quantity = parseInt(values.quantity, 10);
         }
         if (selectedTask) {
-            try {
-                const updateResult = await updateItem(values.id, values);
-                console.log('updateResul');
-                console.log(updateResult);
-                if (!updateResult) return;
-                setItems(items.map(item => (item.id === selectedTask.id ? { ...item, ...values } : item)));
-            } catch (e) {
-
-            }
+            await updateItems(values);
         } else {
-            try {
-                setLoadingVisible(true);
-                const result = await addNewItem(values);
-                if (!result.id) return;
-                await getShoppingList();
-            } catch (e) {
-                setLoadingVisible(false);
-                // @ts-ignore
-                notifications.show({
-                    // @ts-ignore
-                    message: e.message,
-                    color: 'red',
-                });
-            }
+            await addItem(values);
         }
         setModalOpened(false);
         setSelectedTask(null);
